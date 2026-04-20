@@ -20,10 +20,26 @@ struct ContentView: View {
 
                     ForEach($store.rows) { $row in
                         RowView(row: $row)
+                            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                                Button(role: .destructive) {
+                                    if let index = store.rows.firstIndex(where: { $0.id == row.id }) {
+                                        store.deleteRows(at: IndexSet(integer: index))
+                                    }
+                                } label: {
+                                    Label("Xoá", systemImage: "trash")
+                                }
+                            }
                     }
-                    .onDelete(perform: store.deleteRows)
                 }
                 .listStyle(.plain)
+                .toolbar {
+                    ToolbarItemGroup(placement: .keyboard) {
+                        Spacer()
+                        Button("Done") {
+                            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                        }
+                    }
+                }
 
                 TotalFooterView(total: store.total)
             }
