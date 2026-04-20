@@ -10,7 +10,8 @@ final class CalculationStore: ObservableObject {
     }
 
     func addRow() {
-        rows.append(CalculationRow())
+        let lastGia = rows.last?.c
+        rows.append(CalculationRow(c: lastGia))
     }
 
     func deleteRows(at offsets: IndexSet) {

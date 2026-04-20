@@ -9,11 +9,11 @@ struct ContentView: View {
                 List {
                     Section {
                         HStack(spacing: 8) {
-                            header("a")
-                            header("b")
-                            header("c")
-                            header("×").frame(minWidth: 60)
-                            header("Result").frame(maxWidth: .infinity, alignment: .trailing)
+                            header("Chiều dài")
+                            header("Chiều rộng")
+                            header("Giá")
+                            header("Phân").frame(minWidth: 60)
+                            header("KQ").frame(maxWidth: .infinity, alignment: .trailing)
                         }
                     }
 
