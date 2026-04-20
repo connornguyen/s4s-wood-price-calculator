@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject private var store = CalculationStore()
+    @State private var showClearConfirm = false
 
     var body: some View {
         NavigationStack {
@@ -29,14 +30,25 @@ struct ContentView: View {
             .navigationTitle("S4S Wood Calculator")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
+                ToolbarItem(placement: .topBarLeading) {
+                    EditButton()
+                }
+                ToolbarItemGroup(placement: .topBarTrailing) {
+                    if !store.rows.isEmpty {
+                        Button(role: .destructive) {
+                            showClearConfirm = true
+                        } label: {
+                            Image(systemName: "trash")
+                        }
+                    }
                     Button(action: store.addRow) {
                         Label("Add", systemImage: "plus")
                     }
                 }
-                ToolbarItem(placement: .topBarLeading) {
-                    EditButton()
-                }
+            }
+            .confirmationDialog("Xoá tất cả?", isPresented: $showClearConfirm, titleVisibility: .visible) {
+                Button("Xoá tất cả", role: .destructive) { store.rows.removeAll() }
+                Button("Huỷ", role: .cancel) {}
             }
         }
         .environmentObject(store)
