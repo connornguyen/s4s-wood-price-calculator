@@ -9,12 +9,13 @@ struct ContentView: View {
             VStack(spacing: 0) {
                 List {
                     Section {
-                        HStack(spacing: 8) {
-                            header("Chiều dài")
-                            header("Chiều rộng")
-                            header("Giá")
-                            header("Phân").frame(minWidth: 60)
-                            header("KQ").frame(maxWidth: .infinity, alignment: .trailing)
+                        HStack(spacing: 6) {
+                            header("Phân").frame(minWidth: 55)
+                            header("Dài").frame(minWidth: 46)
+                            header("Rộng").frame(minWidth: 46)
+                            header("KL").frame(minWidth: 50, alignment: .trailing)
+                            header("Giá").frame(minWidth: 46)
+                            header("Tiền").frame(minWidth: 50, alignment: .trailing)
                         }
                     }
 

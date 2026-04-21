@@ -4,34 +4,25 @@ struct RowView: View {
     @Binding var row: CalculationRow
     @FocusState private var focusedField: Field?
 
-    private enum Field { case a, b, c }
-    private static let multiplierOptions: [Double] = [1, 1.5, 2, 2.5, 3, 4, 5, 6, 7]
+    private enum Field { case multiplier, a, b, c }
 
     var body: some View {
-        HStack(spacing: 8) {
-            numberField("dài", value: $row.a, field: .a)
-            numberField("rộng", value: $row.b, field: .b)
-            numberField("Giá", value: $row.c, field: .c)
+        HStack(spacing: 6) {
+            numberField("Phân", value: $row.multiplier, field: .multiplier)
+            numberField("Dài", value: $row.a, field: .a)
+            numberField("Rộng", value: $row.b, field: .b)
 
-            Picker("×", selection: $row.multiplier) {
-                ForEach(Self.multiplierOptions, id: \.self) { value in
-                    Text(format(value)).tag(value)
-                }
-            }
-            .pickerStyle(.menu)
-            .labelsHidden()
-            .frame(minWidth: 60)
+            Text(format(row.volume))
+                .font(.body.monospacedDigit())
+                .frame(minWidth: 50, alignment: .trailing)
+
+            numberField("Giá", value: $row.c, field: .c)
 
             Text(format(row.result))
                 .font(.body.monospacedDigit())
-                .frame(maxWidth: .infinity, alignment: .trailing)
+                .frame(minWidth: 50, alignment: .trailing)
         }
-        .toolbar {
-            ToolbarItemGroup(placement: .keyboard) {
-                Spacer()
-                Button("Done") { focusedField = nil }
-            }
-        }
+        .dynamicTypeSize(.large)
     }
 
     private func numberField(_ placeholder: String, value: Binding<Double?>, field: Field) -> some View {
@@ -39,7 +30,7 @@ struct RowView: View {
             .keyboardType(.decimalPad)
             .textFieldStyle(.roundedBorder)
             .multilineTextAlignment(.trailing)
-            .frame(minWidth: 50)
+            .frame(minWidth: 46)
             .focused($focusedField, equals: field)
     }
 

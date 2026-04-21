@@ -5,9 +5,9 @@ struct CalculationRow: Identifiable {
     var a: Double?
     var b: Double?
     var c: Double?
-    var multiplier: Double
+    var multiplier: Double?
 
-    init(id: UUID = UUID(), a: Double? = nil, b: Double? = nil, c: Double? = nil, multiplier: Double = 1) {
+    init(id: UUID = UUID(), a: Double? = nil, b: Double? = nil, c: Double? = nil, multiplier: Double? = nil) {
         self.id = id
         self.a = a
         self.b = b
@@ -15,7 +15,11 @@ struct CalculationRow: Identifiable {
         self.multiplier = multiplier
     }
 
+    var volume: Double {
+        (a ?? 0) * (b ?? 0) * (multiplier ?? 0)
+    }
+
     var result: Double {
-        (a ?? 0) * (b ?? 0) * (c ?? 0) * multiplier
+        volume * (c ?? 0)
     }
 }
