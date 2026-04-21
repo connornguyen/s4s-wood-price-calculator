@@ -68,7 +68,6 @@ struct ContentView: View {
                 Button("Huỷ", role: .cancel) {}
             }
         }
-        .environmentObject(store)
     }
 
     private func header(_ text: String) -> some View {
